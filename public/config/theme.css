@@ -1,0 +1,13 @@
+:root {
+  --primary: #00ce34;
+  --primary-text: #000000;
+    --secondary: transparent;
+    --secondary-text: #000000;
+    --secondary2: #ce0000;
+    --secondary2-text: #ffffff;
+    --secondary3: #000000;
+    --secondary3-text: #000000;
+  --accent: transparent;
+  --accent-text: #000000;
+}
+
