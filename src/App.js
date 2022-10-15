@@ -8,6 +8,7 @@ import styled from "styled-components";
 
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
+  
 
 export const StyledButton = styled.button`
   padding: 10px;
@@ -90,7 +91,7 @@ export const ResponsiveWrapper = styled.div`
 `;
 
 export const StyledLogo = styled.img`
-  width: 200px;
+  width: 300px;
   @media (min-width: 767px) {
     width: 500px;
   }
@@ -109,6 +110,15 @@ export const StyledPFP = styled.img`
  
 `;
 
+export const Styledbanner = styled.img`
+  width: 320px;
+  @media (min-width: 767px) {
+    width: 1000px;
+  }
+  transition: width 0.5s;
+  transition: height 0.5s;
+ 
+`;
 export const Styledicon = styled.img`
   display: flex;
   flex: 1;  
@@ -148,8 +158,8 @@ function App() {
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
   const [claimingNft, setClaimingNft] = useState(false);
-  const [feedback, setFeedback] = useState(`MAX can get 5 freemint NFT.`);
-  const [mintAmount, setmintAmount] = useState(5);
+  const [feedback, setFeedback] = useState(`Get 1 freemint NFT, than 0.003 per`);
+  const [mintAmount, setmintAmount] = useState(1);
   const [freemint, setFreemint] = useState(false);
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
@@ -171,20 +181,13 @@ function App() {
     SHOW_BACKGROUND: false,
   });
 
-  const getMintedFree = async () => {
-    if (blockchain.smartContract !== null){
-    let res = await blockchain.smartContract.methods
-    .freeMinted(blockchain.account)
-    .call();
-    console.log(res);
-    setFreemint(res);}
-  };
+
   const claimNFTs = () => {
     let cost = CONFIG.WEI_COST;
     let gasLimit = CONFIG.GAS_LIMIT;
     let totalCostWei = String(cost * mintAmount);
     if (freemint == false) {
-      totalCostWei = String(cost * mintAmount - 5 * cost);
+      totalCostWei = String(cost * mintAmount - cost);
     }
     let totalGasLimit = String(gasLimit + mintAmount * 2800);
     console.log("Cost: ", totalCostWei);
@@ -213,6 +216,7 @@ function App() {
         dispatch(fetchData(blockchain.account));
       });
   };
+
 
   const decrementmintAmount = () => {
     let newmintAmount = mintAmount - 1;
@@ -267,12 +271,6 @@ function App() {
         <a href={CONFIG.MARKETPLACE_LINK}>
         <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
         </a>
-        <a href={CONFIG.MARKETPLACE_LINK}>
-        <Styledicon alt={"OPENSEA"} src={"/config/images/opensea.png"} />
-      </a> 
-      <a href={CONFIG.TWITTER_LINK}>
-        <Styledicon alt={"TWITTER"} src={"/config/images/twitter.png"} />
-      </a> 
       </s.Container>
         <s.SpacerSmall />
         <ResponsiveWrapper flex={1} style={{ padding: 2 }} test>
@@ -308,7 +306,7 @@ function App() {
             <s.TextTitle
               style={{
                 textAlign: "center",
-                fontSize: 60,
+                fontSize: 40,
                 fontWeight: "bold",
                 color: "var(--accent-text)",
               }}
@@ -399,6 +397,9 @@ function App() {
                     </s.TextDescription>
                     <s.SpacerMedium />
                     <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                    </s.Container>
+                    <s.SpacerLarge />
+                    <s.Container ai={"center"} jc={"center"} fd={"row"}>
                       <StyledRoundButton
                         style={{ lineHeight: 0.4 }}
                         disabled={claimingNft ? 1 : 0}
@@ -468,31 +469,29 @@ function App() {
         </s.Container>
         <ResponsiveWrapper flex={1} style={{ padding: 2 }} test>
           <s.Container
-            flex={1}
-            jc={"center"}
-            ai={"npcenter"}
+            flex={1} jc={"space-around"} ai={"center"} fd={"row"}
             style={{
               backgroundColor: "var(--accent)",
-              padding: 22,
+              padding: 10,
               borderRadius: 24,
               border: "4px dashed var(--secondary)",
-              boxShadow: "0px 4px 11px 2px rgba(0,0,0,0.2)",
+              boxShadow: "0px 4px 11px 2px rgba(0,0,0,0)",
             }}
             > 
             <s.TextDescription style={{ textAlign: "center",fontSize: 25, color: "var(--accent-text)" }}>
-            CryptoMax are about to take over the world. 10,000 Maxz are coming to a web3 you love. Get 5 freemint than 0.002 ETH per one.
-                 Max mint 5 per tx.
+            <p>Supply</p>
+            <p>6,666</p>
             </s.TextDescription>
-            <s.SpacerMedium />
+            <s.TextDescription style={{ textAlign: "center",fontSize: 25, color: "var(--accent-text)" }}>
+            <p>Traits</p>
+            <p>128</p>
+            </s.TextDescription>
+            <s.TextDescription style={{ textAlign: "center",fontSize: 25, color: "var(--accent-text)" }}>
+            <p>Price</p>
+            <p>0.003</p>
+            </s.TextDescription>
           </s.Container>
-          <s.SpacerLarge />
-          <s.Container flex={1} jc={"center"} ai={"center"}>
-          <a href={CONFIG.MARKETPLACE_LINK}>
-        <StyledPFP alt={"PFP"} src={"/config/images/4X4.png"} />
-        </a>
-          </s.Container>  
         </ResponsiveWrapper>
-        <s.SpacerMedium />
         <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
           <s.TextDescription
             style={{
@@ -510,13 +509,218 @@ function App() {
           >
           </s.TextDescription>
         </s.Container>
+        <ResponsiveWrapper flex={1} style={{ padding: 2 }} test>
+        <s.Container flex={1} jc={"center"} ai={"center"}>
+          <a href={CONFIG.MARKETPLACE_LINK}>
+        <StyledPFP alt={"PFP"} src={"/config/images/honeybear.png"} />
+        </a>
+          </s.Container>  
+          <s.Container
+            flex={1}
+            jc={"center"}
+            ai={"npcenter"}
+            style={{
+              backgroundColor: "var(--accent)",
+              padding: 22,
+              borderRadius: 24,
+              border: "4px dashed var(--secondary)",
+              boxShadow: "0px 4px 11px 2px rgba(0,0,0,0.0)",
+            }}
+            > 
+            <s.TextDescription style={{ textAlign: "center",fontSize: 60, color: "var(--accent-text)" }}>
+            HONEY
+            </s.TextDescription>
+            <s.TextDescription style={{ textAlign: "center",fontSize: 25, color: "var(--accent-text)" }}>
+            According to the latest research, FomoBear loves some special honey. We will be introducing some cool mechanics about honey consumption for every NFT in the near future.
+            </s.TextDescription>
+          </s.Container>
+        </ResponsiveWrapper>
+        <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
+          <s.TextDescription
+            style={{
+              textAlign: "center",
+              color: "var(--primary-text)",
+            }}
+          >
+          </s.TextDescription>
+          <s.TextDescription
+            style={{
+              textAlign: "center",
+              color: "var(--primary-text)",
+            }}
+          >
+          </s.TextDescription>
+        </s.Container>
+        <ResponsiveWrapper flex={1} style={{ padding: 2 }} test>
+          <s.SpacerLarge />
+          <s.Container flex={1} jc={"center"} ai={"center"}>
+          <a href={CONFIG.MARKETPLACE_LINK}>
+        <Styledbanner alt={"PFP"} src={"/config/images/1500x500.png"} />
+        </a>
+          </s.Container>  
+        </ResponsiveWrapper>
+        <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
+          <s.TextDescription
+            style={{
+              textAlign: "center",
+              color: "var(--primary-text)",
+            }}
+          >
+          </s.TextDescription>
+          <s.SpacerSmall />
+          <s.TextDescription
+            style={{
+              textAlign: "center",
+              color: "var(--primary-text)",
+            }}
+          >
+          </s.TextDescription>
+        </s.Container>
+        <ResponsiveWrapper flex={1} style={{ padding: 2 }} test>
+          <s.Container
+            flex={1}
+            jc={"center"}
+            ai={"npcenter"}
+            style={{
+              backgroundColor: "var(--accent)",
+              padding: 22,
+              borderRadius: 24,
+              border: "4px dashed var(--secondary)",
+              boxShadow: "0px 4px 11px 2px rgba(0,0,0,0.2)",
+            }}
+            > 
+            <s.TextDescription style={{ textAlign: "center",fontSize: 25, color: "var(--accent-text)" }}>
+            <p>6,666 FOMO Bear are dropping on October.</p>
+            <p>Don't be fooled by their cuteness, they're here to take over the NFT scene.</p>
+            </s.TextDescription>
+          </s.Container>
+        </ResponsiveWrapper>
+        <s.SpacerMedium />
+        <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
+          <s.TextDescription
+            style={{
+              textAlign: "center",
+              color: "var(--primary-text)",
+            }}
+          >
+          </s.TextDescription>
+        </s.Container>
+        <ResponsiveWrapper flex={1} style={{ padding: 2 }} test>
+          <s.SpacerLarge />
+          <s.Container flex={1} jc={"center"} ai={"center"}>
+          <a href={CONFIG.MARKETPLACE_LINK}>
+        <Styledbanner alt={"PFP"} src={"/config/images/roadmap.png"} />
+        </a>
+          </s.Container>  
+        </ResponsiveWrapper>
+        <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
+          <s.TextDescription
+            style={{
+              textAlign: "center",
+              color: "var(--primary-text)",
+            }}
+          >
+          </s.TextDescription>
+          <s.SpacerSmall />
+          <s.TextDescription
+            style={{
+              textAlign: "center",
+              color: "var(--primary-text)",
+            }}
+          >
+          </s.TextDescription>
+        </s.Container>
+        <ResponsiveWrapper flex={3} style={{ padding: 10 }} test>
+          <s.Container
+            flex={1}
+            jc={"center"}
+            ai={"npcenter"}
+            style={{
+              backgroundColor: "var(--secondary2-text)",
+              padding: 22,
+              borderRadius: 24,
+              border: "4px dashed var(--secondary)",
+              boxShadow: "0px 4px 11px 2px rgba(0,0,0,0.2)",
+            }}
+            > 
+            <s.TextDescription style={{ textAlign: "center",fontSize: 25, color: "var(--accent-text)" }}>
+            <p>Step.1</p>
+            <p>Try to Live</p>
+            </s.TextDescription>
+          </s.Container>
+          <s.SpacerMedium />
+          <s.Container
+            flex={1}
+            jc={"center"}
+            ai={"npcenter"}
+            style={{
+              backgroundColor: "var(--secondary2-text)",
+              padding: 22,
+              borderRadius: 24,
+              border: "4px dashed var(--secondary)",
+              boxShadow: "0px 4px 11px 2px rgba(0,0,0,0.2)",
+            }}
+            > 
+            <s.TextDescription style={{ textAlign: "center",fontSize: 25, color: "var(--accent-text)" }}>
+            <p>Step.2</p>
+            <p>Who need Honey</p>
+            </s.TextDescription>
+          </s.Container>
+          <s.SpacerMedium />
+          <s.Container
+            flex={1}
+            jc={"center"}
+            ai={"npcenter"}
+            style={{
+              backgroundColor: "var(--secondary2-text)",
+              padding: 22,
+              borderRadius: 24,
+              border: "4px dashed var(--secondary)",
+              boxShadow: "0px 4px 11px 2px rgba(0,0,0,0.2)",
+            }}
+            > 
+            <s.TextDescription style={{ textAlign: "center",fontSize: 25, color: "var(--accent-text)" }}>
+            <p>Step.3</p>
+            <p>What Next?</p>
+            </s.TextDescription>
+          </s.Container>
+        </ResponsiveWrapper>
+        <s.SpacerMedium />
+        <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
+          <s.TextDescription
+            style={{
+              textAlign: "center",
+              color: "var(--primary-text)",
+            }}
+          >
+          </s.TextDescription>
+        </s.Container>
+        <s.Container
+            flex={1} jc={"space-around"} ai={"center"} fd={"row"}
+            style={{
+              backgroundColor: "var(--accent)",
+              padding: 10,
+              borderRadius: 24,
+              border: "4px dashed var(--secondary)",
+            }}>
+        <a href={CONFIG.MARKETPLACE_LINK}>
+        <Styledicon alt={"OPENSEA"} src={"/config/images/opensea.png"} />
+      </a>
+      <a href={CONFIG.SCAN_LINK}>
+        <Styledicon alt={"ETHERSCAN"} src={"/config/images/etherscan.png"} />
+      </a> 
+      <a href={CONFIG.TWITTER_LINK}>
+        <Styledicon alt={"TWITTER"} src={"/config/images/twitter.png"} />
+      </a> 
+      </s.Container>
+      <s.SpacerSmall />
         <s.TextDescription
             style={{
               textAlign: "center",
               color: "var(--primary-text)",
             }}
           >
-        Get Ready for the Takeover… No Discord, No Roadmap, Good Vibes.
+        Copyright © FomoBear Reserved
         </s.TextDescription>
       </s.Container>
     </s.Screen>
