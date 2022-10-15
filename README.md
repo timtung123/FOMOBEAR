@@ -1,5 +1,5 @@
-# CryptoMax
-# ![](/public/config/images/4X4.png)CryptoMax NFT
+# FOMOBear
+# ![](/public/config/images/1500x500.png)Fomobear NFT
 
 ## 📜Info
 
