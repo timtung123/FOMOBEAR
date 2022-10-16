@@ -228,8 +228,8 @@ function App() {
 
   const incrementmintAmount = () => {
     let newmintAmount = mintAmount + 1;
-    if (newmintAmount > 10) {
-      newmintAmount = 10;
+    if (newmintAmount > 5) {
+      newmintAmount = 5;
     }
     setmintAmount(newmintAmount);
   };
