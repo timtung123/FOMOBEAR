@@ -1,0 +1,19 @@
+{
+  "CONTRACT_ADDRESS": "0x99A9fA088048F072BAAcb0AF8021Eb8D9A9055e6",
+  "SCAN_LINK": "https://goerli.etherscan.io/address/0x99a9fa088048f072baacb0af8021eb8d9a9055e6#code",
+  "TWITTER_LINK": "https://twitter.com/fomobear_nft",
+  "NETWORK": {
+    "NAME": "Etherscan",
+    "SYMBOL": "ETH",
+    "ID": 5
+  },
+  "NFT_NAME": "FOMOBEAR",
+  "SYMBOL": "FOMOBEAR",
+  "MAX_SUPPLY": 6666,
+  "WEI_COST": 3000000000000000,
+  "DISPLAY_COST": 0.003,
+  "GAS_LIMIT": 130000,
+  "MARKETPLACE": "OPENSEA",
+  "MARKETPLACE_LINK": "https://opensea.io/collection/",
+  "SHOW_BACKGROUND": true
+}
