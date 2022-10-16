@@ -1,11 +1,11 @@
 {
-  "CONTRACT_ADDRESS": "0x99A9fA088048F072BAAcb0AF8021Eb8D9A9055e6",
-  "SCAN_LINK": "https://goerli.etherscan.io/address/0x99a9fa088048f072baacb0af8021eb8d9a9055e6#code",
+  "CONTRACT_ADDRESS": "0x58538336524ad624222a9b44b6be4047b40d3292",
+  "SCAN_LINK": "https://etherscan.io/address/0x58538336524ad624222a9b44b6be4047b40d3292",
   "TWITTER_LINK": "https://twitter.com/fomobear_nft",
   "NETWORK": {
     "NAME": "Etherscan",
     "SYMBOL": "ETH",
-    "ID": 5
+    "ID": 1
   },
   "NFT_NAME": "FOMOBEAR",
   "SYMBOL": "FOMOBEAR",
